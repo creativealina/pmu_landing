@@ -1,0 +1,249 @@
+:root {
+  --bg: #f7f1ea;
+  --surface: #efe4d8;
+  --surface-2: #e7d8c9;
+  --ink: #2a1f1a;
+  --ink-soft: #4a3b33;
+  --muted: #7d6b60;
+  --accent: #b27a66;
+  --accent-deep: #8a5644;
+  --blush: #e8c9b8;
+  --line: rgb(42 31 26 / 0.12);
+  --line-strong: rgb(42 31 26 / 0.24);
+
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --container: 1240px;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --section-y: clamp(5rem, 11vw, 9rem);
+  --radius: 4px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+::selection {
+  background: var(--blush);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-deep);
+  outline-offset: 3px;
+}
+
+/* ---------- Layout utilities ---------- */
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin-top: 1rem;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--accent-deep);
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.section-head p {
+  max-width: 26rem;
+  color: var(--muted);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 1.75rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.35s var(--ease),
+    color 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    transform 0.35s var(--ease);
+}
+
+.btn:hover {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.btn--ghost:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+.btn--light {
+  background: var(--bg);
+  color: var(--ink);
+  border-color: var(--bg);
+}
+
+.btn--light:hover {
+  background: var(--blush);
+  border-color: var(--blush);
+  color: var(--ink);
+}
+
+.btn-arrow {
+  transition: transform 0.35s var(--ease);
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ---------- Reveal on scroll ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 1s var(--ease),
+    transform 1s var(--ease);
+  transition-delay: var(--delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

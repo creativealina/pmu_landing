@@ -1,0 +1,57 @@
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  --art-ink: hsl(var(--tone) 32% 24%);
+  --art-hair: hsl(var(--tone) 30% 60%);
+  --art-skin: hsl(var(--tone) 55% 93%);
+  --art-blush: hsl(calc(var(--tone) - 12) 70% 75% / 0.35);
+  --art-faint: hsl(var(--tone) 18% 50% / 0.7);
+  --art-fill: hsl(var(--tone) 48% 62% / 0.55);
+
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 20% 10%, hsl(var(--tone) 55% 94%) 0%, transparent 60%),
+    radial-gradient(90% 70% at 90% 100%, hsl(var(--tone) 35% 76%) 0%, transparent 70%),
+    linear-gradient(160deg, hsl(var(--tone) 38% 88%), hsl(var(--tone) 28% 78%));
+}
+
+/* Subtle film grain */
+.placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.4 0 0 0 0 0.35 0 0 0 .25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.before {
+  filter: saturate(0.35) brightness(1.02);
+}
+
+.after {
+  filter: none;
+}
+
+.art {
+  width: 62%;
+  max-width: 340px;
+  height: auto;
+}
+
+/* Portrait fills the frame and sits on the bottom edge, like a cropped photo. */
+.artPortrait {
+  width: 88%;
+  max-width: none;
+  align-self: end;
+}
